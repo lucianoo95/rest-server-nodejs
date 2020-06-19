@@ -41,7 +41,7 @@ router.post('/login', (request, response) => {
 
     // Generar token
     const token = jwt.sign({
-      userDB
+      user: userDB
     }, process.env.SEED, { expiresIn: process.env.TOKEN_EXPIRATION });
 
     // Usuario logueado correctamente
