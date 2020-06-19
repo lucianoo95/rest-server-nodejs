@@ -1,9 +1,11 @@
-// Inicializar: express,
+// Importar paquetes necesarios
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 
 require('./config/config');
 
+// TODO: Separar conexion de la BD del archivo principal.
 const configMongo = {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -24,11 +26,12 @@ const app = express();
 // Variables
 app.set('port', process.env.PORT || 4000);
 
-// Middleware
+// Middlewares
+app.use(morgan('dev'));
 app.use(express.json());
 
-// Routes
-app.use(require('./routes/user'));
+// Configuracion Global de Rutas
+app.use(require('./routes/'));
 
 // Iniciar servidor
 app.listen(app.get('port'), () => {

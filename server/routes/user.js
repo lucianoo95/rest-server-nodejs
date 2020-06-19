@@ -4,9 +4,11 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 
 const User = require('../models/user');
+const { getAndVerifyToken, verifyAdminRole } = require('../middlewares/authentication');
 
 // Listar usuario
-router.get('/user', (request, response) => {
+router.get('/user', getAndVerifyToken, (request, response) => {
+  
   // Filtrar limite de usuarios y orden
   const since = Number(request.query.since) || 0;
   const limit = Number(request.query.limit) || 5;
@@ -37,7 +39,7 @@ router.get('/user', (request, response) => {
 });
 
 // Agregar un nuevo usuario
-router.post('/user', (request, response) => {
+router.post('/user', [getAndVerifyToken, verifyAdminRole], (request, response) => {
   // Obtener datos del body.
   const { name, email, password, role } = request.body;
 
@@ -68,7 +70,7 @@ router.post('/user', (request, response) => {
 });
 
 // Modificar un usuario
-router.put('/user/:id', (request, response) => {
+router.put('/user/:id', [getAndVerifyToken, verifyAdminRole], (request, response) => {
   // Obtener datos (id) de la url
   const { id } = request.params;
 
@@ -94,7 +96,7 @@ router.put('/user/:id', (request, response) => {
 });
 
 // Eliminar un usuario
-router.delete('/user/:id', (request, response) => {
+router.delete('/user/:id', [getAndVerifyToken, verifyAdminRole], (request, response) => {
   // Seleccionar id del usuario
   const { id } = request.params;
   // Cambiar el valor del 'state' del usuario
