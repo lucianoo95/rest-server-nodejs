@@ -38,7 +38,7 @@ const verifyAdminRole = (request, response, next) => {
   if (user.role === 'ADMIN_ROLE') {
     next();
   } else {
-    return response.json({
+    return response.status(403).json({
       ok: false,
       error: {
         message: 'El usuario no es administrador.'
