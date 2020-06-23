@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const path = require('path');
 
 require('./config/config');
 
@@ -29,6 +30,7 @@ app.set('port', process.env.PORT || 4000);
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '../public')))
 
 // Configuracion Global de Rutas
 app.use(require('./routes/'));
