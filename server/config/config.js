@@ -3,7 +3,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 // VENCIMIENTO DEL TOKEN
 //60 seg, 60min, 24hs, 30dias.
-process.env.TOKEN_EXPIRATION = 60 * 60 * 24 * 30;
+process.env.TOKEN_EXPIRATION = '48h';
 
 // SEED de atuenticación
 process.env.SEED = process.env.SEED || 'this-is-seed-development';
